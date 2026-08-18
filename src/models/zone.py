@@ -38,6 +38,14 @@ class Zone:
             raise ValueError(f"zone '{self.name}' is blocked, no cost")
         return _MOVEMENT_COST[self.zone_type]
 
+    def can_accept(self, current_occupancy: int) -> bool:
+        if self.zone_type is ZoneType.BLOCKED:
+            return False
+        elif current_occupancy >= self.max_drones:
+            return False
+        else:
+            return True
+
 
 class StartZone(Zone):
     """The unique zone where every drone begins the simulation.
